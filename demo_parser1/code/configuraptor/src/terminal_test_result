@@ -1,0 +1,27 @@
+*ElaboratorImpl> rname (RSNum 1 (RSRes "Pc"))
+Right [("Pc",1)]
+*ElaboratorImpl> rname (RSRes "Pc")
+Right [("Pc",1)]
+*ElaboratorImpl> rname (RSAnd (RSRes "a") (RSRes "b"))
+Right [("a",1),("b",1)]
+*ElaboratorImpl> rname (RSAnd (RSAnd (RSRes "a") (RSRes "b")) (RSRes "c"))
+Right [("a",1),("b",1),("c",1)]
+*ElaboratorImpl> rname (RSOr (RSAnd (RSRes "a") (RSRes "b")) (RSRes "c"))
+*** Exception: ElaboratorImpl.hs:(72,9)-(76,35): Non-exhaustive patterns in case
+
+*ElaboratorImpl> rname (RSAnd (RSOr (RSRes "a") (RSRes "b")) (RSRes "c"))
+Right [("aorb",1),("c",1)]
+*ElaboratorImpl> rname (RSOr (RSOr (RSRes "a") (RSRes "b")) (RSRes "c"))
+Right [("aorborc",1)]
+
+
+
+*ElaboratorImpl> rname (RSOr (RSOr (RSNum 1 (RSRes "a")) (RSRes "b")) (RSRes "c"))
+Right [("aorborc",1)]
+*ElaboratorImpl> rname (RSOr (RSOr (RSNum 3 (RSRes "a")) (RSRes "b")) (RSRes "c"))
+Right [("3aor1borc",1)]
+*ElaboratorImpl> rname (RSOr (RSOr (RSNum 3 (RSRes "a")) (RSRes "b")) (RSRes "c"))
+Right [("3aor1borc",1)]
+*ElaboratorImpl> rname (RSAnd (RSOr (RSNum 3 (RSRes "a")) (RSRes "b")) (RSRes "c"))
+Right [("3aor1b",1),("c",1)]
+*ElaboratorImpl> 
